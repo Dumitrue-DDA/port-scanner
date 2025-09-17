@@ -1,6 +1,28 @@
-# Python
-__pycache__
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# IDE
-.code-workspace
-.vscode
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# VS Code workspace
+port-scanner.code-workspace
+
+# Logs
+*.log
+
+# Tests
+tests/
+# Test artifacts
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Package build artifacts
+*.egg-info/
+build/
+dist/

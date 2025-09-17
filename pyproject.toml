@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "port-scanner"
+version = "0.1.0"
+description = "A simple network port scanner for educational purposes"
+readme = "README.md"
+authors = [
+    {name = "Dumitru Andrei Despina", email = "despina.andrei2003@gmail.com"},
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: System :: Networking",
+    "Topic :: Security",
+]
+keywords = ["port", "scanner", "network", "security", "tcp", "udp"]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "black",
+    "flake8",
+    "mypy",
+]
+
+[project.scripts]
+port-scanner = "port_scanner.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Dumitrue-DDA/port-scanner"
+Repository = "https://github.com/Dumitrue-DDA/port-scanner"
+Issues = "https://github.com/Dumitrue-DDA/port-scanner/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=port_scanner --cov-report=html --cov-report=term-missing"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
