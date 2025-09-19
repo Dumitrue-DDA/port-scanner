@@ -6,7 +6,6 @@ import ipaddress
 import logging
 from ..config.settings import MIN_PORT, MAX_PORT, LOG_FORMAT, LOG_DATE_FORMAT
 
-
 def is_ip(address: str) -> bool:
     """
     Check if a given string is a valid IP address.
@@ -73,3 +72,48 @@ def validate_port(port: int) -> bool:
         bool: True if valid, False otherwise
     """
     return MIN_PORT <= port <= MAX_PORT
+
+# interpeting ICMP codes
+
+# contains all messages to ensure proper handling
+# we'll only get 3, 11 or 12 codes
+ICMP_MESSAGE = {
+    3: {
+        0: "Destination network unreachable",
+        1: "Destination host unreachable",
+        2: "Destination protocol unreachable",
+        3: "Destination port unreachable",
+        4: "Fragmentation required",
+        5: "Source route failed",
+        6: "Destination network unkown",
+        7: "Destination host unknown",
+        8: "Source host isolated",
+        9: "Network administratively prohibited",
+        10: "Host administratively prohibited",
+        11: "Network unreachable for given type of service",
+        12: "Host unreachable for given type of service",
+        13: "Coommunication administratively prohibited",
+        14: "Host precedence violation",
+        15: "Precedence cutoff in effect",
+    },
+    11: {
+        0: "Time to live expired in transit",
+        1: "Fragment reassembly time exceeded"
+    },
+    12: {
+        0: "Pointer indicates error",
+        1: "Missing a required option",
+        2: "Bad length"
+    }
+}
+
+def get_icmp_message(type: int, code:int) -> str:
+    """
+    Returns appropriate message for the given ICMP type and code
+    """
+    type_dictionary = ICMP_MESSAGE.get(type)
+
+    if (not type_dictionary):
+        return f"unknown ICMP type {type}, {code}"
+    
+    return type_dictionary.get(code, f"Unknown code {code} for type {type}")

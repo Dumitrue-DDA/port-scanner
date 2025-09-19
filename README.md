@@ -1,21 +1,18 @@
 # Port Scanner
 
-A small educational port-scanning tool written in Python. It can scan a single TCP and/or UDP port on an IPv4 address or a resolved domain name. The project is a work-in-progress.
+A simple CLI tool that scans a targeted IPv4 address / domain name on a given port.
 
 ## Features
 
-- Command-line interface with comprehensive argument parsing
-- TCP and UDP single-port scanning capabilities
-- Support for both IP addresses and domain name resolution
-- Configurable scan protocols (TCP, UDP, or both)
-- Adjustable timeout settings for scan operations
-- Verbose logging mode for detailed scan information
-- Retrieves common service names for open ports using the system service database
-- Small, dependency-free codebase (standard library only)
+- CLI interface with argument parsing
+- Scanning a single TCP and/or UDP port
+- Target can be either an IPv4 address or a domain name
+- Optional verbose log output
+- Prints name of the service, if possible
 
 ## Usage
 
-Run the scanner script with command-line arguments:
+Run the scanner script with command line arguments:
 
 ```bash
 python3 scanner.py -t <target> -p <port> [options]
@@ -26,8 +23,8 @@ python3 scanner.py -t <target> -p <port> [options]
 - `-p, --port`: Port number to scan (1-65535)
 
 ### Optional Arguments:
-- `-P, --protocol`: Protocol to scan - `tcp`, `udp`, or `both` (default: both)
-- `-v, --verbose`: Enable verbose output with debug information
+- `-P, --protocol`: Protocol to scan -> `tcp`, `udp`, or `both` (default: both)
+- `-v, --verbose`: Enable verbose log output
 - `-T, --timeout`: Timeout in seconds for each port scan (default: 10)
 
 ### Examples:
@@ -46,7 +43,7 @@ python3 scanner.py -t 10.0.0.1 -p 53 -P udp -T 5
 python3 scanner.py -t google.com -p 443 -P both -v -T 15
 ```
 
-You can also import the scanner module to other Python projects:
+The scanner can also be imported as a library into Python code
 
 ```python
 from src.port_scanner import scan_port
@@ -57,21 +54,18 @@ print(f"Scan {target}:{port} -> {result}")
 
 ## Requirements
 
-No external packages are required. If any third-party dependencies are added, they will be listed in `requirements.txt`.
-
-This project uses only Python standard-library modules (tested on Python 3.10+):
+This project uses only standard Python libraries (Python 3.10+):
 - `socket` - Network communication and port scanning
-- `ipaddress` - IP address validation and parsing
-- `argparse` - Command-line argument parsing
-- `datetime` - Timestamp generation and scan duration tracking
-- `logging` - Structured output and debug information
-- `sys` - System-specific parameters and exit handling
+- `ipaddress` - IP address validation and domain resolution
+- `argparse` - Parsing arguments in CLI
+- `datetime` - Used to determin runtime
+- `logging` - For structured logs
+- `sys` - Handling exit
 
 ## Development / TODO
 
-- Add support for scanning port ranges and concurrency to speed up scans
+- Scanning a port range / multiple ports
+- Concurent scanning of multiple ports
 - Improve UDP scanning heuristics and ICMP handling
-- Add unit tests and example usage
-- Implement configuration file support for common scan profiles
-- Add output formatting options (JSON, CSV, XML)
-- Implement basic stealth scanning techniques
+- Testing using PyTest
+- Predefined scan profiles
